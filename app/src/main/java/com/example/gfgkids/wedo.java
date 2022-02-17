@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+//prueba 1
+
 public class wedo extends AppCompatActivity {
 
     @Override
