@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+//me cago en tu puta madre
+
 public class ev3 extends AppCompatActivity {
 
     @Override
@@ -22,36 +24,19 @@ public class ev3 extends AppCompatActivity {
     public void seleccion (@NonNull View boton){
         String nombre_del_pdf ="";
         switch (boton.getId()){
-            case R.id.B_Helicoptero:
-                nombre_del_pdf = "helocoptero.pdf";
+            case R.id.B_carreras:
+                nombre_del_pdf = "Carreras.pdf";
                 break;
-            case R.id.B_blaze:
-                nombre_del_pdf = "blaze.pdf";
+            case R.id.B_futbol:
+                nombre_del_pdf = "Futbol.pdf";
                 break;
-            case R.id.B_catapulta:
-                nombre_del_pdf = "catapulta wedo.pdf";
+            case R.id.B_Boxeo:
+                nombre_del_pdf = "boxeadorev3.pdf";
                 break;
-            case R.id.B_araña:
-                nombre_del_pdf = "araña.pdf";
+            case R.id.B_dino:
+                nombre_del_pdf = "dino ev3.pdf";
                 break;
-            case R.id.B_Boxeador:
-                nombre_del_pdf = "Boxeador.pdf";
-                break;
-            case R.id.B_Giromaker:
-                nombre_del_pdf = "catapulta giromaker.pdf";
-                break;
-            case R.id.B_Lanzador_manual:
-                nombre_del_pdf = "lanzador manual.pdf";
-                break;
-            case R.id.B_Sumo:
-                nombre_del_pdf = "sumo wedo2.pdf";
-                break;
-            case R.id.Contenedor:
-                nombre_del_pdf = "Arbol Navidad.pdf";
-                break;
-            case R.id.B_Quitanieves:
-                nombre_del_pdf = "quitanieves.pdf";
-                break;
+
         }
 
         Intent pantalla_new = new Intent(this, pdf.class);
