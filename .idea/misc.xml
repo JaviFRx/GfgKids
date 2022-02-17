@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_ev3.xml" value="0.21223958333333334" />
+        <entry key="..\:/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_main.xml" value="0.20807291666666666" />
+        <entry key="..\:/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_wedo.xml" value="0.27005208333333336" />
+        <entry key="..\:/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_ev3.xml" value="0.17239583333333333" />
+        <entry key="..\:/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_wedo.xml" value="0.18541666666666667" />
+        <entry key="..\:/AndroidStudioProjects/GfgKids2/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1225" />
+        <entry key="..\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_ev3.xml" value="0.46041666666666664" />
+        <entry key="..\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_main.xml" value="0.46041666666666664" />
+        <entry key="..\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_pdf.xml" value="0.46041666666666664" />
+        <entry key="..\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_wedo.xml" value="0.6541353383458647" />
+        <entry key="..\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_ev3.xml" value="0.3105076741440378" />
+        <entry key="..\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_main.xml" value="0.365234375" />
+        <entry key="..\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_pdf.xml" value="0.33" />
+        <entry key="..\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_wedo.xml" value="0.333984375" />
+        <entry key="..\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_wedo.xml" value="0.2015625" />
+        <entry key="..\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_pdf.xml" value="0.28828125" />
+        <entry key="..\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_wedo.xml" value="0.31328125" />
+        <entry key="..\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_wedo2.xml" value="0.275" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
