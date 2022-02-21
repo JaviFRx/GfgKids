@@ -37,58 +37,6 @@
                     android:layout_height="match_parent"
                     android:backgroundTint="#FFFFFF">
 
-                    <TextView
-                        android:id="@+id/textView6"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@android:color/darker_gray"
-                        android:contentDescription="@string/Vacio"
-                        android:text="Helicoptero"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        tools:ignore="TextContrastCheck" />
-
-                    <TextView
-                        android:id="@+id/textView7"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@android:color/darker_gray"
-                        android:contentDescription="@string/Vacio"
-                        android:text="Catapulta"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        tools:ignore="TextContrastCheck" />
-
-                    <TextView
-                        android:id="@+id/textView8"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@android:color/darker_gray"
-                        android:contentDescription="@string/Vacio"
-                        android:text="Blaze"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        tools:ignore="TextContrastCheck" />
-
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/primera"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="100"
-                    android:clickable="false"
-                    android:minHeight="100dp">
-
                     <ImageButton
                         android:id="@+id/B_Helicoptero"
                         android:layout_width="0dp"
@@ -130,6 +78,36 @@
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/blaze" />
 
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/primera"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="100"
+                    android:clickable="false"
+                    android:minHeight="100dp">
+
+                    <ImageView
+                        android:id="@+id/imageView7"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/helicoptero_txt" />
+
+                    <ImageView
+                        android:id="@+id/imageView8"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/carreras_txt" />
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/carreras_txt" />
                 </TableRow>
 
                 <TableRow
@@ -384,24 +362,35 @@
                         android:textDirection="firstStrongRtl" />
 
                     <ImageButton
-                        android:id="@+id/imageButton15"
+                        android:id="@+id/b_Quitanieves"
                         android:layout_width="0dp"
-                        android:layout_height="275dp"
+                        android:layout_height="250dp"
                         android:layout_weight="1"
-                        android:backgroundTint="@android:color/darker_gray"
-                        android:contentDescription="@string/Vacio"
+                        android:backgroundTint="@android:color/transparent"
+                        android:contentDescription="@string/Helicoptero"
+                        android:maxHeight="275dp"
+                        android:minHeight="275dp"
                         android:onClick="seleccion"
-                        android:scaleType="fitXY" />
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/candado_verde"
+                        android:textAlignment="gravity"
+                        android:textDirection="firstStrongRtl" />
 
                     <ImageButton
-                        android:id="@+id/imageButton16"
+                        android:id="@+id/b_Quitanieves2"
                         android:layout_width="0dp"
-                        android:layout_height="275dp"
+                        android:layout_height="250dp"
                         android:layout_weight="1"
-                        android:backgroundTint="@android:color/darker_gray"
-                        android:contentDescription="@string/Vacio"
+                        android:backgroundTint="@android:color/transparent"
+                        android:contentDescription="@string/Helicoptero"
+                        android:maxHeight="275dp"
+                        android:minHeight="275dp"
                         android:onClick="seleccion"
-                        android:scaleType="fitXY" />
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/candado_verde"
+                        android:textAlignment="gravity"
+                        android:textDirection="firstStrongRtl" />
+
                 </TableRow>
 
             </TableLayout>
