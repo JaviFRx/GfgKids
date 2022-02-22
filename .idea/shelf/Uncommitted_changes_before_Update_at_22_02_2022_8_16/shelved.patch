@@ -1,0 +1,1045 @@
+Index: app/src/main/res/values/dimens.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/dimens.xml b/app/src/main/res/values/dimens.xml
+new file mode 100644
+--- /dev/null	(date 1645434219450)
++++ b/app/src/main/res/values/dimens.xml	(date 1645434219450)
+@@ -0,0 +1,5 @@
++<resources>
++    <!-- Default screen margins, per the Android Design guidelines. -->
++ <dimen name="activity_horizontal_margin">16dp</dimen>
++ <dimen name="activity_vertical_margin">16dp</dimen>
++</resources>
+\ No newline at end of file
+Index: app/src/main/res/values-w1240dp/dimens.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values-w1240dp/dimens.xml b/app/src/main/res/values-w1240dp/dimens.xml
+new file mode 100644
+--- /dev/null	(date 1645434219441)
++++ b/app/src/main/res/values-w1240dp/dimens.xml	(date 1645434219441)
+@@ -0,0 +1,3 @@
++<resources>
++ <dimen name="activity_horizontal_margin">200dp</dimen>
++</resources>
+\ No newline at end of file
+Index: app/src/main/java/com/example/gfgkids/ui/login/LoginActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/gfgkids/ui/login/LoginActivity.java b/app/src/main/java/com/example/gfgkids/ui/login/LoginActivity.java
+new file mode 100644
+--- /dev/null	(date 1645434219484)
++++ b/app/src/main/java/com/example/gfgkids/ui/login/LoginActivity.java	(date 1645434219484)
+@@ -0,0 +1,132 @@
++package  com.example.gfgkids.ui.login;
++
++import android.app.Activity;
++import androidx.lifecycle.Observer;
++import androidx.lifecycle.ViewModelProvider;
++import android.os.Bundle;
++import androidx.annotation.Nullable;
++import androidx.annotation.StringRes;
++import androidx.appcompat.app.AppCompatActivity;
++import android.text.Editable;
++import android.text.TextWatcher;
++import android.view.KeyEvent;
++import android.view.View;
++import android.view.inputmethod.EditorInfo;
++import android.widget.Button;
++import android.widget.EditText;
++import android.widget.ProgressBar;
++import android.widget.TextView;
++import android.widget.Toast;
++
++import com.example.gfgkids.R;
++import com.example.gfgkids.ui.login.LoginViewModel;
++import com.example.gfgkids.ui.login.LoginViewModelFactory;
++import com.example.gfgkids.databinding.ActivityLoginBinding;
++
++public class LoginActivity extends AppCompatActivity {
++
++    private LoginViewModel loginViewModel;
++private ActivityLoginBinding binding;
++
++    @Override
++    public void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++
++     binding = ActivityLoginBinding.inflate(getLayoutInflater());
++     setContentView(binding.getRoot());
++
++        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
++                .get(LoginViewModel.class);
++
++        final EditText usernameEditText = binding.username;
++        final EditText passwordEditText = binding.password;
++        final Button loginButton = binding.login;
++        final ProgressBar loadingProgressBar = binding.loading;
++
++        loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
++            @Override
++            public void onChanged(@Nullable LoginFormState loginFormState) {
++                if (loginFormState == null) {
++                    return;
++                }
++                loginButton.setEnabled(loginFormState.isDataValid());
++                if (loginFormState.getUsernameError() != null) {
++                    usernameEditText.setError(getString(loginFormState.getUsernameError()));
++                }
++                if (loginFormState.getPasswordError() != null) {
++                    passwordEditText.setError(getString(loginFormState.getPasswordError()));
++                }
++            }
++        });
++
++        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
++            @Override
++            public void onChanged(@Nullable LoginResult loginResult) {
++                if (loginResult == null) {
++                    return;
++                }
++                loadingProgressBar.setVisibility(View.GONE);
++                if (loginResult.getError() != null) {
++                    showLoginFailed(loginResult.getError());
++                }
++                if (loginResult.getSuccess() != null) {
++                    updateUiWithUser(loginResult.getSuccess());
++                }
++                setResult(Activity.RESULT_OK);
++
++                //Complete and destroy login activity once successful
++                finish();
++            }
++        });
++
++        TextWatcher afterTextChangedListener = new TextWatcher() {
++            @Override
++            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
++                // ignore
++            }
++
++            @Override
++            public void onTextChanged(CharSequence s, int start, int before, int count) {
++                // ignore
++            }
++
++            @Override
++            public void afterTextChanged(Editable s) {
++                loginViewModel.loginDataChanged(usernameEditText.getText().toString(),
++                        passwordEditText.getText().toString());
++            }
++        };
++        usernameEditText.addTextChangedListener(afterTextChangedListener);
++        passwordEditText.addTextChangedListener(afterTextChangedListener);
++        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
++
++            @Override
++            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
++                if (actionId == EditorInfo.IME_ACTION_DONE) {
++                    loginViewModel.login(usernameEditText.getText().toString(),
++                            passwordEditText.getText().toString());
++                }
++                return false;
++            }
++        });
++
++        loginButton.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                loadingProgressBar.setVisibility(View.VISIBLE);
++                loginViewModel.login(usernameEditText.getText().toString(),
++                        passwordEditText.getText().toString());
++            }
++        });
++    }
++
++    private void updateUiWithUser(LoggedInUserView model) {
++        String welcome = getString(R.string.welcome) + model.getDisplayName();
++        // TODO : initiate successful logged in experience
++        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
++    }
++
++    private void showLoginFailed(@StringRes Integer errorString) {
++        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/example/gfgkids/ui/login/LoginViewModelFactory.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/gfgkids/ui/login/LoginViewModelFactory.java b/app/src/main/java/com/example/gfgkids/ui/login/LoginViewModelFactory.java
+new file mode 100644
+--- /dev/null	(date 1645433445954)
++++ b/app/src/main/java/com/example/gfgkids/ui/login/LoginViewModelFactory.java	(date 1645433445954)
+@@ -0,0 +1,26 @@
++package com.example.gfgkids.ui.login;
++
++import androidx.lifecycle.ViewModel;
++import androidx.lifecycle.ViewModelProvider;
++import androidx.annotation.NonNull;
++
++import com.example.gfgkids.data.LoginDataSource;
++import com.example.gfgkids.data.LoginRepository;
++
++/**
++ * ViewModel provider factory to instantiate LoginViewModel.
++ * Required given LoginViewModel has a non-empty constructor
++ */
++public class LoginViewModelFactory implements ViewModelProvider.Factory {
++
++    @NonNull
++    @Override
++    @SuppressWarnings("unchecked")
++    public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
++        if (modelClass.isAssignableFrom(LoginViewModel.class)) {
++            return (T) new LoginViewModel(LoginRepository.getInstance(new LoginDataSource()));
++        } else {
++            throw new IllegalArgumentException("Unknown ViewModel class");
++        }
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/values-land/dimens.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values-land/dimens.xml b/app/src/main/res/values-land/dimens.xml
+new file mode 100644
+--- /dev/null	(date 1645434219510)
++++ b/app/src/main/res/values-land/dimens.xml	(date 1645434219510)
+@@ -0,0 +1,3 @@
++<resources>
++ <dimen name="activity_horizontal_margin">48dp</dimen>
++</resources>
+\ No newline at end of file
+Index: app/src/main/java/com/example/gfgkids/data/LoginRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/gfgkids/data/LoginRepository.java b/app/src/main/java/com/example/gfgkids/data/LoginRepository.java
+new file mode 100644
+--- /dev/null	(date 1645434219516)
++++ b/app/src/main/java/com/example/gfgkids/data/LoginRepository.java	(date 1645434219516)
+@@ -0,0 +1,54 @@
++package com.example.gfgkids.data;
++
++import com.example.gfgkids.data.model.LoggedInUser;
++
++/**
++ * Class that requests authentication and user information from the remote data source and
++ * maintains an in-memory cache of login status and user credentials information.
++ */
++public class LoginRepository {
++
++    private static volatile LoginRepository instance;
++
++    private LoginDataSource dataSource;
++
++    // If user credentials will be cached in local storage, it is recommended it be encrypted
++    // @see https://developer.android.com/training/articles/keystore
++    private LoggedInUser user = null;
++
++    // private constructor : singleton access
++    private LoginRepository(LoginDataSource dataSource) {
++        this.dataSource = dataSource;
++    }
++
++    public static LoginRepository getInstance(LoginDataSource dataSource) {
++        if(instance == null){
++            instance = new LoginRepository(dataSource);
++        }
++        return instance;
++    }
++
++    public boolean isLoggedIn() {
++        return user != null;
++    }
++
++    public void logout() {
++        user = null;
++        dataSource.logout();
++    }
++
++    private void setLoggedInUser(LoggedInUser user) {
++        this.user = user;
++        // If user credentials will be cached in local storage, it is recommended it be encrypted
++        // @see https://developer.android.com/training/articles/keystore
++    }
++
++    public Result<LoggedInUser> login(String username, String password) {
++        // handle login
++        Result<LoggedInUser> result = dataSource.login(username, password);
++        if (result instanceof Result.Success) {
++            setLoggedInUser(((Result.Success<LoggedInUser>) result).getData());
++        }
++        return result;
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_login.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_login.xml b/app/src/main/res/layout/activity_login.xml
+new file mode 100644
+--- /dev/null	(date 1645434219490)
++++ b/app/src/main/res/layout/activity_login.xml	(date 1645434219490)
+@@ -0,0 +1,70 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:id="@+id/container"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:paddingBottom="@dimen/activity_vertical_margin"
++    android:paddingLeft="@dimen/activity_horizontal_margin"
++    android:paddingRight="@dimen/activity_horizontal_margin"
++    android:paddingTop="@dimen/activity_vertical_margin"
++    tools:context=".ui.login.LoginActivity">
++
++    <EditText
++        android:id="@+id/username"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="96dp"
++        android:hint="@string/prompt_email"
++        android:inputType="textEmailAddress"
++        android:selectAllOnFocus="true"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <EditText
++        android:id="@+id/password"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="8dp"
++        android:hint="@string/prompt_password"
++        android:imeActionLabel="@string/action_sign_in_short"
++        android:imeOptions="actionDone"
++        android:inputType="textPassword"
++        android:selectAllOnFocus="true"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/username" />
++
++    <Button
++        android:id="@+id/login"
++        android:enabled="false"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_gravity="start"
++        android:layout_marginTop="16dp"
++        android:layout_marginBottom="64dp"
++        android:text="@string/action_sign_in"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/password"
++        app:layout_constraintVertical_bias="0.2" />
++
++    <ProgressBar
++        android:id="@+id/loading"
++        android:visibility="gone"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_gravity="center"
++        android:layout_marginTop="64dp"
++        android:layout_marginBottom="64dp"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="@+id/password"
++        app:layout_constraintStart_toStartOf="@+id/password"
++        app:layout_constraintTop_toTopOf="parent"
++        app:layout_constraintVertical_bias="0.3" />
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: .idea/deploymentTargetDropDown.xml
+===================================================================
+diff --git a/.idea/deploymentTargetDropDown.xml b/.idea/deploymentTargetDropDown.xml
+deleted file mode 100644
+--- a/.idea/deploymentTargetDropDown.xml	(revision 8fca30fea09596a3c71c89e54bd9e0303faf37f9)
++++ /dev/null	(revision 8fca30fea09596a3c71c89e54bd9e0303faf37f9)
+@@ -1,17 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="deploymentTargetDropDown">
+-    <runningDeviceTargetSelectedWithDropDown>
+-      <Target>
+-        <type value="RUNNING_DEVICE_TARGET" />
+-        <deviceKey>
+-          <Key>
+-            <type value="SERIAL_NUMBER" />
+-            <value value="R9TR403AL7J" />
+-          </Key>
+-        </deviceKey>
+-      </Target>
+-    </runningDeviceTargetSelectedWithDropDown>
+-    <timeTargetWasSelectedWithDropDown value="2022-02-17T12:26:17.299315500Z" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: app/src/main/java/com/example/gfgkids/ui/login/LoginFormState.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/gfgkids/ui/login/LoginFormState.java b/app/src/main/java/com/example/gfgkids/ui/login/LoginFormState.java
+new file mode 100644
+--- /dev/null	(date 1645433445998)
++++ b/app/src/main/java/com/example/gfgkids/ui/login/LoginFormState.java	(date 1645433445998)
+@@ -0,0 +1,40 @@
++package com.example.gfgkids.ui.login;
++
++import androidx.annotation.Nullable;
++
++/**
++ * Data validation state of the login form.
++ */
++class LoginFormState {
++    @Nullable
++    private Integer usernameError;
++    @Nullable
++    private Integer passwordError;
++    private boolean isDataValid;
++
++    LoginFormState(@Nullable Integer usernameError, @Nullable Integer passwordError) {
++        this.usernameError = usernameError;
++        this.passwordError = passwordError;
++        this.isDataValid = false;
++    }
++
++    LoginFormState(boolean isDataValid) {
++        this.usernameError = null;
++        this.passwordError = null;
++        this.isDataValid = isDataValid;
++    }
++
++    @Nullable
++    Integer getUsernameError() {
++        return usernameError;
++    }
++
++    @Nullable
++    Integer getPasswordError() {
++        return passwordError;
++    }
++
++    boolean isDataValid() {
++        return isDataValid;
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/example/gfgkids/ui/login/LoginViewModel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/gfgkids/ui/login/LoginViewModel.java b/app/src/main/java/com/example/gfgkids/ui/login/LoginViewModel.java
+new file mode 100644
+--- /dev/null	(date 1645434219459)
++++ b/app/src/main/java/com/example/gfgkids/ui/login/LoginViewModel.java	(date 1645434219459)
+@@ -0,0 +1,69 @@
++package com.example.gfgkids.ui.login;
++
++import androidx.lifecycle.LiveData;
++import androidx.lifecycle.MutableLiveData;
++import androidx.lifecycle.ViewModel;
++import android.util.Patterns;
++
++import com.example.gfgkids.data.LoginRepository;
++import com.example.gfgkids.data.Result;
++import com.example.gfgkids.data.model.LoggedInUser;
++import com.example.gfgkids.R;
++
++public class LoginViewModel extends ViewModel {
++
++    private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
++    private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
++    private LoginRepository loginRepository;
++
++    LoginViewModel(LoginRepository loginRepository) {
++        this.loginRepository = loginRepository;
++    }
++
++    LiveData<LoginFormState> getLoginFormState() {
++        return loginFormState;
++    }
++
++    LiveData<LoginResult> getLoginResult() {
++        return loginResult;
++    }
++
++    public void login(String username, String password) {
++        // can be launched in a separate asynchronous job
++        Result<LoggedInUser> result = loginRepository.login(username, password);
++
++        if (result instanceof Result.Success) {
++            LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
++            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
++        } else {
++            loginResult.setValue(new LoginResult(R.string.login_failed));
++        }
++    }
++
++    public void loginDataChanged(String username, String password) {
++        if (!isUserNameValid(username)) {
++            loginFormState.setValue(new LoginFormState(R.string.invalid_username, null));
++        } else if (!isPasswordValid(password)) {
++            loginFormState.setValue(new LoginFormState(null, R.string.invalid_password));
++        } else {
++            loginFormState.setValue(new LoginFormState(true));
++        }
++    }
++
++    // A placeholder username validation check
++    private boolean isUserNameValid(String username) {
++        if (username == null) {
++            return false;
++        }
++        if (username.contains("@")) {
++            return Patterns.EMAIL_ADDRESS.matcher(username).matches();
++        } else {
++            return !username.trim().isEmpty();
++        }
++    }
++
++    // A placeholder password validation check
++    private boolean isPasswordValid(String password) {
++        return password != null && password.trim().length() > 5;
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/layout-w1240dp/activity_login.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout-w1240dp/activity_login.xml b/app/src/main/res/layout-w1240dp/activity_login.xml
+new file mode 100644
+--- /dev/null	(date 1645434219503)
++++ b/app/src/main/res/layout-w1240dp/activity_login.xml	(date 1645434219503)
+@@ -0,0 +1,70 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:id="@+id/container"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:paddingBottom="@dimen/activity_vertical_margin"
++    android:paddingLeft="@dimen/activity_horizontal_margin"
++    android:paddingRight="@dimen/activity_horizontal_margin"
++    android:paddingTop="@dimen/activity_vertical_margin"
++    tools:context=".ui.login.LoginActivity">
++
++    <EditText
++        android:id="@+id/username"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="96dp"
++        android:hint="@string/prompt_email"
++        android:inputType="textEmailAddress"
++        android:selectAllOnFocus="true"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <EditText
++        android:id="@+id/password"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="8dp"
++        android:hint="@string/prompt_password"
++        android:imeActionLabel="@string/action_sign_in_short"
++        android:imeOptions="actionDone"
++        android:inputType="textPassword"
++        android:selectAllOnFocus="true"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/username" />
++
++    <Button
++        android:id="@+id/login"
++        android:enabled="false"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_gravity="start"
++        android:layout_marginTop="16dp"
++        android:layout_marginBottom="64dp"
++        android:text="@string/action_sign_in"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/password"
++        app:layout_constraintVertical_bias="0.2" />
++
++    <ProgressBar
++        android:id="@+id/loading"
++        android:visibility="gone"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_gravity="center"
++        android:layout_marginTop="64dp"
++        android:layout_marginBottom="64dp"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="@+id/password"
++        app:layout_constraintStart_toStartOf="@+id/password"
++        app:layout_constraintTop_toTopOf="parent"
++        app:layout_constraintVertical_bias="0.3" />
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"com.example.gfgkids\">\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:screenOrientation=\"landscape\"\r\n        android:theme=\"@style/Theme.AppCompat.Light.NoActionBar\">\r\n        <activity\r\n            android:name=\".ev3\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".wedo\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".pdf\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".MainActivity\"\r\n            android:exported=\"true\">\r\n\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision 8fca30fea09596a3c71c89e54bd9e0303faf37f9)
++++ b/app/src/main/AndroidManifest.xml	(date 1645434219497)
+@@ -1,15 +1,19 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+-    package="com.example.gfgkids">
++    package="com.example.gfgkids" >
+ 
+     <application
+         android:allowBackup="true"
+         android:icon="@mipmap/ic_launcher"
+         android:label="@string/app_name"
+         android:roundIcon="@mipmap/ic_launcher_round"
+-        android:supportsRtl="true"
+         android:screenOrientation="landscape"
+-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
++        android:supportsRtl="true"
++        android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
++        <activity
++            android:name=".ui.login.LoginActivity"
++            android:exported="false"
++            android:label="@string/title_activity_login" />
+         <activity
+             android:name=".ev3"
+             android:exported="false" />
+@@ -21,8 +25,7 @@
+             android:exported="false" />
+         <activity
+             android:name=".MainActivity"
+-            android:exported="true">
+-
++            android:exported="true" >
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+ 
+Index: app/src/main/java/com/example/gfgkids/ui/login/LoginResult.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/gfgkids/ui/login/LoginResult.java b/app/src/main/java/com/example/gfgkids/ui/login/LoginResult.java
+new file mode 100644
+--- /dev/null	(date 1645434219472)
++++ b/app/src/main/java/com/example/gfgkids/ui/login/LoginResult.java	(date 1645434219472)
+@@ -0,0 +1,31 @@
++package  com.example.gfgkids.ui.login;
++
++import androidx.annotation.Nullable;
++
++/**
++ * Authentication result : success (user details) or error message.
++ */
++class LoginResult {
++    @Nullable
++    private LoggedInUserView success;
++    @Nullable
++    private Integer error;
++
++    LoginResult(@Nullable Integer error) {
++        this.error = error;
++    }
++
++    LoginResult(@Nullable LoggedInUserView success) {
++        this.success = success;
++    }
++
++    @Nullable
++    LoggedInUserView getSuccess() {
++        return success;
++    }
++
++    @Nullable
++    Integer getError() {
++        return error;
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/example/gfgkids/ui/login/LoggedInUserView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/gfgkids/ui/login/LoggedInUserView.java b/app/src/main/java/com/example/gfgkids/ui/login/LoggedInUserView.java
+new file mode 100644
+--- /dev/null	(date 1645434219529)
++++ b/app/src/main/java/com/example/gfgkids/ui/login/LoggedInUserView.java	(date 1645434219529)
+@@ -0,0 +1,17 @@
++package  com.example.gfgkids.ui.login;
++
++/**
++ * Class exposing authenticated user details to the UI.
++ */
++class LoggedInUserView {
++    private String displayName;
++    //... other data fields that may be accessible to the UI
++
++    LoggedInUserView(String displayName) {
++        this.displayName = displayName;
++    }
++
++    String getDisplayName() {
++        return displayName;
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/example/gfgkids/data/LoginDataSource.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/gfgkids/data/LoginDataSource.java b/app/src/main/java/com/example/gfgkids/data/LoginDataSource.java
+new file mode 100644
+--- /dev/null	(date 1645433445978)
++++ b/app/src/main/java/com/example/gfgkids/data/LoginDataSource.java	(date 1645433445978)
+@@ -0,0 +1,29 @@
++package com.example.gfgkids.data;
++
++import com.example.gfgkids.data.model.LoggedInUser;
++
++import java.io.IOException;
++
++/**
++ * Class that handles authentication w/ login credentials and retrieves user information.
++ */
++public class LoginDataSource {
++
++    public Result<LoggedInUser> login(String username, String password) {
++
++        try {
++            // TODO: handle loggedInUser authentication
++            LoggedInUser fakeUser =
++                    new LoggedInUser(
++                            java.util.UUID.randomUUID().toString(),
++                            "Jane Doe");
++            return new Result.Success<>(fakeUser);
++        } catch (Exception e) {
++            return new Result.Error(new IOException("Error logging in", e));
++        }
++    }
++
++    public void logout() {
++        // TODO: revoke authentication
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/example/gfgkids/data/Result.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/gfgkids/data/Result.java b/app/src/main/java/com/example/gfgkids/data/Result.java
+new file mode 100644
+--- /dev/null	(date 1645434219478)
++++ b/app/src/main/java/com/example/gfgkids/data/Result.java	(date 1645434219478)
+@@ -0,0 +1,47 @@
++package com.example.gfgkids.data;
++
++/**
++ * A generic class that holds a result success w/ data or an error exception.
++ */
++public class Result<T> {
++    // hide the private constructor to limit subclass types (Success, Error)
++    private Result() {}
++
++    // Success sub-class
++    public final static class Success<T> extends Result {
++        private T data;
++
++        public Success(T data) {
++            this.data = data;
++        }
++
++        public T getData() {
++            return this.data;
++        }
++    }
++
++    // Error sub-class
++    public final static class Error extends Result {
++        private Exception error;
++
++        public Error(Exception error) {
++            this.error = error;
++        }
++
++        public Exception getError() {
++            return this.error;
++        }
++    }
++
++    @Override
++    public String toString() {
++        if (this instanceof Result.Success) {
++            Result.Success success = (Result.Success) this;
++            return "Success[data=" + success.getData().toString() + "]";
++        } else if (this instanceof Result.Error) {
++            Result.Error error = (Result.Error) this;
++            return "Error[exception=" + error.getError().toString() + "]";
++        }
++        return "";
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">GfgKids</string>\r\n    <string name=\"Vacio\">Vacio</string>\r\n    <string name=\"Helicoptero\">Helicoptero</string>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	(revision 8fca30fea09596a3c71c89e54bd9e0303faf37f9)
++++ b/app/src/main/res/values/strings.xml	(date 1645433445872)
+@@ -2,4 +2,13 @@
+     <string name="app_name">GfgKids</string>
+     <string name="Vacio">Vacio</string>
+     <string name="Helicoptero">Helicoptero</string>
++    <string name="title_activity_login">LoginActivity</string>
++    <string name="prompt_email">Email</string>
++    <string name="prompt_password">Password</string>
++    <string name="action_sign_in">Sign in or register</string>
++    <string name="action_sign_in_short">Sign in</string>
++    <string name="welcome">"Welcome !"</string>
++    <string name="invalid_username">Not a valid username</string>
++    <string name="invalid_password">Password must be >5 characters</string>
++    <string name="login_failed">"Login failed"</string>
+ </resources>
+\ No newline at end of file
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    id 'com.android.application'\r\n}\r\n\r\nandroid {\r\n    compileSdk 31\r\n\r\n    defaultConfig {\r\n        applicationId \"com.example.gfgkids\"\r\n        minSdk 21\r\n        targetSdk 31\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n}\r\n\r\ndependencies {\r\n\r\n    implementation 'androidx.appcompat:appcompat:1.4.1'\r\n    implementation 'com.google.android.material:material:1.5.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'\r\n    implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'\r\n    testImplementation 'junit:junit:'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.3'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle b/app/build.gradle
+--- a/app/build.gradle	(revision 8fca30fea09596a3c71c89e54bd9e0303faf37f9)
++++ b/app/build.gradle	(date 1645433446133)
+@@ -25,6 +25,9 @@
+         sourceCompatibility JavaVersion.VERSION_1_8
+         targetCompatibility JavaVersion.VERSION_1_8
+     }
++    buildFeatures {
++        viewBinding true
++    }
+ }
+ 
+ dependencies {
+@@ -33,6 +36,9 @@
+     implementation 'com.google.android.material:material:1.5.0'
+     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+     implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
++    implementation 'androidx.annotation:annotation:1.3.0'
++    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
++    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+     testImplementation 'junit:junit:'
+     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+Index: app/src/main/java/com/example/gfgkids/data/model/LoggedInUser.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/gfgkids/data/model/LoggedInUser.java b/app/src/main/java/com/example/gfgkids/data/model/LoggedInUser.java
+new file mode 100644
+--- /dev/null	(date 1645433445970)
++++ b/app/src/main/java/com/example/gfgkids/data/model/LoggedInUser.java	(date 1645433445970)
+@@ -0,0 +1,23 @@
++package com.example.gfgkids.data.model;
++
++/**
++ * Data class that captures user information for logged in users retrieved from LoginRepository
++ */
++public class LoggedInUser {
++
++    private String userId;
++    private String displayName;
++
++    public LoggedInUser(String userId, String displayName) {
++        this.userId = userId;
++        this.displayName = displayName;
++    }
++
++    public String getUserId() {
++        return userId;
++    }
++
++    public String getDisplayName() {
++        return displayName;
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/values-w600dp/dimens.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values-w600dp/dimens.xml b/app/src/main/res/values-w600dp/dimens.xml
+new file mode 100644
+--- /dev/null	(date 1645434219465)
++++ b/app/src/main/res/values-w600dp/dimens.xml	(date 1645434219465)
+@@ -0,0 +1,3 @@
++<resources>
++ <dimen name="activity_horizontal_margin">48dp</dimen>
++</resources>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DesignSurface\">\r\n    <option name=\"filePathToZoomLevelMap\">\r\n      <map>\r\n        <entry key=\"..\\:/AndroidStudioProjects/GFGkids/app/src/main/res/layout-land/activity_ev3.xml\" value=\"0.2831275720164609\" />\r\n        <entry key=\"..\\:/AndroidStudioProjects/GFGkids/app/src/main/res/layout-land/activity_main.xml\" value=\"0.49114583333333334\" />\r\n        <entry key=\"..\\:/AndroidStudioProjects/GFGkids/app/src/main/res/layout-land/activity_wedo.xml\" value=\"0.27242798353909464\" />\r\n        <entry key=\"..\\:/AndroidStudioProjects/GFGkids/app/src/main/res/layout/activity_ev3.xml\" value=\"0.34479166666666666\" />\r\n        <entry key=\"..\\:/AndroidStudioProjects/GFGkids/app/src/main/res/layout/activity_wedo.xml\" value=\"0.34479166666666666\" />\r\n        <entry key=\"..\\:/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_ev3.xml\" value=\"0.21223958333333334\" />\r\n        <entry key=\"..\\:/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_main.xml\" value=\"0.20807291666666666\" />\r\n        <entry key=\"..\\:/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_wedo.xml\" value=\"0.27005208333333336\" />\r\n        <entry key=\"..\\:/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_ev3.xml\" value=\"0.17239583333333333\" />\r\n        <entry key=\"..\\:/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_main.xml\" value=\"0.25\" />\r\n        <entry key=\"..\\:/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_wedo.xml\" value=\"0.18541666666666667\" />\r\n        <entry key=\"..\\:/AndroidStudioProjects/GfgKids2/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml\" value=\"0.1225\" />\r\n        <entry key=\"..\\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_ev3.xml\" value=\"0.46041666666666664\" />\r\n        <entry key=\"..\\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_main.xml\" value=\"0.46041666666666664\" />\r\n        <entry key=\"..\\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_pdf.xml\" value=\"0.46041666666666664\" />\r\n        <entry key=\"..\\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_wedo.xml\" value=\"0.6541353383458647\" />\r\n        <entry key=\"..\\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_ev3.xml\" value=\"0.3105076741440378\" />\r\n        <entry key=\"..\\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_main.xml\" value=\"0.365234375\" />\r\n        <entry key=\"..\\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_pdf.xml\" value=\"0.33\" />\r\n        <entry key=\"..\\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_wedo.xml\" value=\"0.333984375\" />\r\n        <entry key=\"..\\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_wedo.xml\" value=\"0.2015625\" />\r\n        <entry key=\"..\\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_main.xml\" value=\"0.33\" />\r\n        <entry key=\"..\\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_pdf.xml\" value=\"0.28828125\" />\r\n        <entry key=\"..\\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_wedo.xml\" value=\"0.31328125\" />\r\n        <entry key=\"..\\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_wedo2.xml\" value=\"0.275\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"Android Studio default JDK\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 8fca30fea09596a3c71c89e54bd9e0303faf37f9)
++++ b/.idea/misc.xml	(date 1645434232199)
+@@ -3,11 +3,10 @@
+   <component name="DesignSurface">
+     <option name="filePathToZoomLevelMap">
+       <map>
+-        <entry key="..\:/AndroidStudioProjects/GFGkids/app/src/main/res/layout-land/activity_ev3.xml" value="0.2831275720164609" />
++        <entry key="..\:/AndroidStudioProjects/GFGkids/app/src/main/res/layout-land/activity_ev3.xml" value="0.5" />
+         <entry key="..\:/AndroidStudioProjects/GFGkids/app/src/main/res/layout-land/activity_main.xml" value="0.49114583333333334" />
+-        <entry key="..\:/AndroidStudioProjects/GFGkids/app/src/main/res/layout-land/activity_wedo.xml" value="0.27242798353909464" />
++        <entry key="..\:/AndroidStudioProjects/GFGkids/app/src/main/res/layout-land/activity_wedo.xml" value="0.49114583333333334" />
+         <entry key="..\:/AndroidStudioProjects/GFGkids/app/src/main/res/layout/activity_ev3.xml" value="0.34479166666666666" />
+-        <entry key="..\:/AndroidStudioProjects/GFGkids/app/src/main/res/layout/activity_wedo.xml" value="0.34479166666666666" />
+         <entry key="..\:/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_ev3.xml" value="0.21223958333333334" />
+         <entry key="..\:/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_main.xml" value="0.20807291666666666" />
+         <entry key="..\:/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_wedo.xml" value="0.27005208333333336" />
+@@ -23,6 +22,11 @@
+         <entry key="..\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_main.xml" value="0.365234375" />
+         <entry key="..\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_pdf.xml" value="0.33" />
+         <entry key="..\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_wedo.xml" value="0.333984375" />
++        <entry key="..\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids/app/src/main/res/layout-land/activity_ev3.xml" value="0.38697916666666665" />
++        <entry key="..\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids/app/src/main/res/layout-land/activity_wedo.xml" value="0.38697916666666665" />
++        <entry key="..\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.38671875" />
++        <entry key="..\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids/app/src/main/res/layout-w936dp/activity_login.xml" value="0.251171875" />
++        <entry key="..\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids/app/src/main/res/layout/activity_login.xml" value="0.33489583333333334" />
+         <entry key="..\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_wedo.xml" value="0.2015625" />
+         <entry key="..\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_main.xml" value="0.33" />
+         <entry key="..\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_pdf.xml" value="0.28828125" />
+Index: app/src/main/res/layout-w936dp/activity_login.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout-w936dp/activity_login.xml b/app/src/main/res/layout-w936dp/activity_login.xml
+new file mode 100644
+--- /dev/null	(date 1645434219522)
++++ b/app/src/main/res/layout-w936dp/activity_login.xml	(date 1645434219522)
+@@ -0,0 +1,77 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:id="@+id/container"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:paddingBottom="@dimen/activity_vertical_margin"
++    android:paddingLeft="@dimen/activity_horizontal_margin"
++    android:paddingRight="@dimen/activity_horizontal_margin"
++    android:paddingTop="@dimen/activity_vertical_margin"
++    tools:context=".ui.login.LoginActivity">
++
++    <androidx.constraintlayout.widget.ConstraintLayout
++        android:layout_width="840dp"
++        android:layout_height="match_parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintEnd_toEndOf="parent">
++
++    <EditText
++        android:id="@+id/username"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="96dp"
++        android:hint="@string/prompt_email"
++        android:inputType="textEmailAddress"
++        android:selectAllOnFocus="true"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <EditText
++        android:id="@+id/password"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="8dp"
++        android:hint="@string/prompt_password"
++        android:imeActionLabel="@string/action_sign_in_short"
++        android:imeOptions="actionDone"
++        android:inputType="textPassword"
++        android:selectAllOnFocus="true"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/username" />
++
++    <Button
++        android:id="@+id/login"
++        android:enabled="false"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_gravity="start"
++        android:layout_marginTop="16dp"
++        android:layout_marginBottom="64dp"
++        android:text="@string/action_sign_in"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/password"
++        app:layout_constraintVertical_bias="0.2" />
++
++    <ProgressBar
++        android:id="@+id/loading"
++        android:visibility="gone"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_gravity="center"
++        android:layout_marginTop="64dp"
++        android:layout_marginBottom="64dp"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="@+id/password"
++        app:layout_constraintStart_toStartOf="@+id/password"
++        app:layout_constraintTop_toTopOf="parent"
++        app:layout_constraintVertical_bias="0.3" />
++
++    </androidx.constraintlayout.widget.ConstraintLayout>
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file

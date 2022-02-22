@@ -32,6 +32,83 @@
                 android:layout_height="wrap_content">
 
                 <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:id="@+id/B_Quitanieves"
+                        android:layout_width="0dp"
+                        android:layout_height="250dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@android:color/transparent"
+                        android:contentDescription="@string/Helicoptero"
+                        android:maxHeight="275dp"
+                        android:minHeight="275dp"
+                        android:onClick="seleccion"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/quitanieves"
+                        android:textAlignment="gravity"
+                        android:textDirection="firstStrongRtl" />
+
+                    <ImageButton
+                        android:id="@+id/b_Quitanieves"
+                        android:layout_width="0dp"
+                        android:layout_height="250dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@android:color/transparent"
+                        android:contentDescription="@string/Helicoptero"
+                        android:maxHeight="275dp"
+                        android:minHeight="275dp"
+                        android:onClick="seleccion"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/candado_verde"
+                        android:textAlignment="gravity"
+                        android:textDirection="firstStrongRtl" />
+
+                    <ImageButton
+                        android:id="@+id/b_Quitanieves2"
+                        android:layout_width="0dp"
+                        android:layout_height="250dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@android:color/transparent"
+                        android:contentDescription="@string/Helicoptero"
+                        android:maxHeight="275dp"
+                        android:minHeight="275dp"
+                        android:onClick="seleccion"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/candado_verde"
+                        android:textAlignment="gravity"
+                        android:textDirection="firstStrongRtl" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imageView16"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/quitanives_txt" />
+
+                    <ImageView
+                        android:id="@+id/imageView17"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/proximamente_txt" />
+
+                    <ImageView
+                        android:id="@+id/imageView18"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/proximamente_txt" />
+                </TableRow>
+
+                <TableRow
                     android:id="@+id/text1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -84,82 +161,32 @@
                     android:id="@+id/primera"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="100"
-                    android:clickable="false"
-                    android:minHeight="100dp">
+                    android:clickable="false">
 
                     <ImageView
                         android:id="@+id/imageView7"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/helicoptero_txt" />
 
                     <ImageView
                         android:id="@+id/imageView8"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/carreras_txt" />
+                        app:srcCompat="@drawable/catapulta_txt" />
 
                     <ImageView
                         android:id="@+id/imageView9"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/carreras_txt" />
+                        app:srcCompat="@drawable/blaze_txt" />
                 </TableRow>
 
                 <TableRow
                     android:id="@+id/text2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/textView10"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@android:color/darker_gray"
-                        android:text="Araña"
-                        android:textAlignment="center"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        tools:ignore="TextContrastCheck" />
-
-                    <TextView
-                        android:id="@+id/textView11"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@android:color/darker_gray"
-                        android:text="Boxeador"
-                        android:textAlignment="center"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        tools:ignore="TextContrastCheck" />
-
-                    <TextView
-                        android:id="@+id/textView12"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@android:color/darker_gray"
-                        android:text="Giromaker"
-                        android:textAlignment="center"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        tools:ignore="TextContrastCheck" />
-
-                </TableRow>
-
-                <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -202,47 +229,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/textView"
+                    <ImageView
+                        android:id="@+id/imageView10"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:layout_weight="1"
-                        android:background="@android:color/darker_gray"
-                        android:contentDescription="@string/Vacio"
-                        android:text="Lanzador Manual"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        tools:ignore="TextContrastCheck" />
+                        app:srcCompat="@drawable/arana_txt" />
 
-                    <TextView
-                        android:id="@+id/textView2"
+                    <ImageView
+                        android:id="@+id/imageView11"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:layout_weight="1"
-                        android:background="@android:color/darker_gray"
-                        android:contentDescription="@string/Vacio"
-                        android:text="Sumo"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        tools:ignore="TextContrastCheck" />
+                        app:srcCompat="@drawable/boxeador_txt" />
 
-                    <TextView
-                        android:id="@+id/textView3"
+                    <ImageView
+                        android:id="@+id/imageView12"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:layout_weight="1"
-                        android:background="@android:color/darker_gray"
-                        android:contentDescription="@string/Vacio"
-                        android:text="Arbol de Navidad"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        tools:ignore="TextContrastCheck" />
+                        app:srcCompat="@drawable/giromaker_txt" />
                 </TableRow>
 
                 <TableRow
@@ -300,97 +306,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/textView4"
+                    <ImageView
+                        android:id="@+id/imageView13"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:layout_weight="1"
-                        android:background="@android:color/darker_gray"
-                        android:contentDescription="@string/Vacio"
-                        android:text="Quitanieves"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        tools:ignore="TextContrastCheck" />
+                        app:srcCompat="@drawable/lanzador_manual_txt" />
 
-                    <TextView
-                        android:id="@+id/textView5"
+                    <ImageView
+                        android:id="@+id/imageView14"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:layout_weight="1"
-                        android:background="@android:color/darker_gray"
-                        android:contentDescription="@string/Vacio"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        tools:ignore="TextContrastCheck" />
+                        app:srcCompat="@drawable/sumo_txt" />
 
-                    <TextView
-                        android:id="@+id/textView9"
+                    <ImageView
+                        android:id="@+id/imageView15"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:layout_weight="1"
-                        android:background="@android:color/darker_gray"
-                        android:contentDescription="@string/Vacio"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        tools:ignore="TextContrastCheck" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/B_Quitanieves"
-                        android:layout_width="0dp"
-                        android:layout_height="250dp"
-                        android:layout_weight="1"
-                        android:backgroundTint="@android:color/transparent"
-                        android:contentDescription="@string/Helicoptero"
-                        android:maxHeight="275dp"
-                        android:minHeight="275dp"
-                        android:onClick="seleccion"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/quitanieves"
-                        android:textAlignment="gravity"
-                        android:textDirection="firstStrongRtl" />
-
-                    <ImageButton
-                        android:id="@+id/b_Quitanieves"
-                        android:layout_width="0dp"
-                        android:layout_height="250dp"
-                        android:layout_weight="1"
-                        android:backgroundTint="@android:color/transparent"
-                        android:contentDescription="@string/Helicoptero"
-                        android:maxHeight="275dp"
-                        android:minHeight="275dp"
-                        android:onClick="seleccion"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/candado_verde"
-                        android:textAlignment="gravity"
-                        android:textDirection="firstStrongRtl" />
-
-                    <ImageButton
-                        android:id="@+id/b_Quitanieves2"
-                        android:layout_width="0dp"
-                        android:layout_height="250dp"
-                        android:layout_weight="1"
-                        android:backgroundTint="@android:color/transparent"
-                        android:contentDescription="@string/Helicoptero"
-                        android:maxHeight="275dp"
-                        android:minHeight="275dp"
-                        android:onClick="seleccion"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/candado_verde"
-                        android:textAlignment="gravity"
-                        android:textDirection="firstStrongRtl" />
-
+                        app:srcCompat="@drawable/arbol_navidad_txt" />
                 </TableRow>
 
             </TableLayout>

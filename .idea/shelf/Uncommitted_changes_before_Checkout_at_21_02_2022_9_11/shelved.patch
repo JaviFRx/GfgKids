@@ -1,0 +1,44 @@
+Index: .idea/deploymentTargetDropDown.xml
+===================================================================
+diff --git a/.idea/deploymentTargetDropDown.xml b/.idea/deploymentTargetDropDown.xml
+deleted file mode 100644
+--- a/.idea/deploymentTargetDropDown.xml	(revision bdc333ff4e973208d4047a48a3f3c37d03f890e2)
++++ /dev/null	(revision bdc333ff4e973208d4047a48a3f3c37d03f890e2)
+@@ -1,17 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="deploymentTargetDropDown">
+-    <runningDeviceTargetSelectedWithDropDown>
+-      <Target>
+-        <type value="RUNNING_DEVICE_TARGET" />
+-        <deviceKey>
+-          <Key>
+-            <type value="SERIAL_NUMBER" />
+-            <value value="R9TR403AL7J" />
+-          </Key>
+-        </deviceKey>
+-      </Target>
+-    </runningDeviceTargetSelectedWithDropDown>
+-    <timeTargetWasSelectedWithDropDown value="2022-02-17T12:26:17.299315500Z" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DesignSurface\">\r\n    <option name=\"filePathToZoomLevelMap\">\r\n      <map>\r\n        <entry key=\"..\\:/AndroidStudioProjects/GFGkids/app/src/main/res/layout-land/activity_ev3.xml\" value=\"0.5\" />\r\n        <entry key=\"..\\:/AndroidStudioProjects/GFGkids/app/src/main/res/layout-land/activity_main.xml\" value=\"0.49114583333333334\" />\r\n        <entry key=\"..\\:/AndroidStudioProjects/GFGkids/app/src/main/res/layout-land/activity_wedo.xml\" value=\"0.49114583333333334\" />\r\n        <entry key=\"..\\:/AndroidStudioProjects/GFGkids/app/src/main/res/layout/activity_ev3.xml\" value=\"0.34479166666666666\" />\r\n        <entry key=\"..\\:/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_ev3.xml\" value=\"0.21223958333333334\" />\r\n        <entry key=\"..\\:/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_main.xml\" value=\"0.20807291666666666\" />\r\n        <entry key=\"..\\:/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_wedo.xml\" value=\"0.27005208333333336\" />\r\n        <entry key=\"..\\:/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_ev3.xml\" value=\"0.17239583333333333\" />\r\n        <entry key=\"..\\:/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_main.xml\" value=\"0.25\" />\r\n        <entry key=\"..\\:/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_wedo.xml\" value=\"0.18541666666666667\" />\r\n        <entry key=\"..\\:/AndroidStudioProjects/GfgKids2/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml\" value=\"0.1225\" />\r\n        <entry key=\"..\\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_ev3.xml\" value=\"0.46041666666666664\" />\r\n        <entry key=\"..\\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_main.xml\" value=\"0.46041666666666664\" />\r\n        <entry key=\"..\\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_pdf.xml\" value=\"0.46041666666666664\" />\r\n        <entry key=\"..\\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_wedo.xml\" value=\"0.6541353383458647\" />\r\n        <entry key=\"..\\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_ev3.xml\" value=\"0.3105076741440378\" />\r\n        <entry key=\"..\\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_main.xml\" value=\"0.365234375\" />\r\n        <entry key=\"..\\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_pdf.xml\" value=\"0.33\" />\r\n        <entry key=\"..\\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_wedo.xml\" value=\"0.333984375\" />\r\n        <entry key=\"..\\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_wedo.xml\" value=\"0.2015625\" />\r\n        <entry key=\"..\\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_main.xml\" value=\"0.33\" />\r\n        <entry key=\"..\\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_pdf.xml\" value=\"0.28828125\" />\r\n        <entry key=\"..\\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_wedo.xml\" value=\"0.31328125\" />\r\n        <entry key=\"..\\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_wedo2.xml\" value=\"0.275\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"Android Studio default JDK\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision bdc333ff4e973208d4047a48a3f3c37d03f890e2)
++++ b/.idea/misc.xml	(date 1645430915408)
+@@ -22,6 +22,8 @@
+         <entry key="..\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_main.xml" value="0.365234375" />
+         <entry key="..\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_pdf.xml" value="0.33" />
+         <entry key="..\:/Users/Javi/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_wedo.xml" value="0.333984375" />
++        <entry key="..\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids/app/src/main/res/layout-land/activity_ev3.xml" value="0.38697916666666665" />
++        <entry key="..\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids/app/src/main/res/layout-land/activity_wedo.xml" value="0.38697916666666665" />
+         <entry key="..\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids2/app/src/main/res/layout-land/activity_wedo.xml" value="0.2015625" />
+         <entry key="..\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_main.xml" value="0.33" />
+         <entry key="..\:/Users/alfonsofernandez/AndroidStudioProjects/GfgKids2/app/src/main/res/layout/activity_pdf.xml" value="0.28828125" />
