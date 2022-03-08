@@ -39,6 +39,9 @@ public class ev3 extends AppCompatActivity {
             case R.id.b_tanque:
                 nombre_del_pdf = "tanque.pdf";
                 break;
+            case R.id.b_coche_f1:
+                nombre_del_pdf = "cochef1.pdf";
+                break;
         }
 
         Intent pantalla_new = new Intent(this, pdf.class);
