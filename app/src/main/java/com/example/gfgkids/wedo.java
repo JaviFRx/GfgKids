@@ -55,6 +55,9 @@ public class wedo extends AppCompatActivity {
             case R.id.B_Quitanieves:
                 nombre_del_pdf = "quitanieves.pdf";
                 break;
+            case R.id.B_balancin:
+                nombre_del_pdf = "balancin.pdf";
+                break;
         }
 
         Intent pantalla_new = new Intent(this, pdf.class);
