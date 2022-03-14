@@ -16,6 +16,9 @@ import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
@@ -51,6 +54,12 @@ public class pdf extends AppCompatActivity {
                 .pageFitPolicy(FitPolicy.WIDTH) // modo para ajustar páginas en la vista
                 .load();
 
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {}
+        });
+
+
     }
 
     public  void ir_inicio(View view){
@@ -64,7 +73,8 @@ public class pdf extends AppCompatActivity {
 
     public void publicidad( ){
         AdRequest adRequest = new AdRequest.Builder().build();
-        InterstitialAd.load(pdf.this,"ca-app-pub-3940256099942544/1033173712", adRequest,
+        InterstitialAd.load(pdf.this,"ca-app-pub-7646700747398841~1869211751", adRequest,
+                // "ca-app-pub-3940256099942544/1033173712" para pruebas
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
@@ -74,20 +84,21 @@ public class pdf extends AppCompatActivity {
                         mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
                             @Override
                             public void onAdDismissedFullScreenContent() {
-                                Log.d("TAG", "The ad was dismissed.");
+                                Log.d("TAG", "El anuncio fue descartado.");
                                 volver_al_inicio();
                             }
 
 
                             @Override
                             public void onAdFailedToShowFullScreenContent( @NonNull AdError adError) {
-                                Log.d("TAG", "The ad failed to show.");
+                                Log.d("TAG", "El anuncio no se mostro");
                             }
 
                             @Override
                             public void onAdShowedFullScreenContent() {
                                 mInterstitialAd = null;
-                                Log.d("TAG", "The ad was shown.");
+                                Log.d("TAG", "El anuncio se mostro");
+                               // volver_al_inicio();
                             }
                         });
                     }
@@ -102,7 +113,8 @@ public class pdf extends AppCompatActivity {
         if (mInterstitialAd != null) {
             mInterstitialAd.show(pdf.this);
         } else {
-            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+            Log.d("TAG", "El anuncio intersticial aún no estaba listo.");
+            Toast.makeText(this, "El anuncio intersticial aún no estaba listo.", Toast.LENGTH_SHORT).show();
         }
     }
 
