@@ -1,4 +1,4 @@
-package com.example.gfgkids;
+package com.robotica.gfgkids;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-//prueba 2
 
 public class wedo extends AppCompatActivity {
 

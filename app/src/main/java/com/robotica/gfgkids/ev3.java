@@ -1,4 +1,4 @@
-package com.example.gfgkids;
+package com.robotica.gfgkids;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import com.robotica.gfgkids.R;
 
-//me cago en tu puta madre
 
 public class ev3 extends AppCompatActivity {
 

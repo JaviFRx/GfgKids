@@ -1,4 +1,4 @@
-package com.example.gfgkids;
+package com.robotica.gfgkids;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

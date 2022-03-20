@@ -1,4 +1,4 @@
-package com.example.gfgkids;
+package com.robotica.gfgkids;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -73,7 +73,7 @@ public class pdf extends AppCompatActivity {
 
     public void publicidad( ){
         AdRequest adRequest = new AdRequest.Builder().build();
-        InterstitialAd.load(pdf.this,"ca-app-pub-7646700747398841~1869211751", adRequest,
+        InterstitialAd.load(pdf.this,"ca-app-pub-7646700747398841/7423347805", adRequest,
                 // "ca-app-pub-3940256099942544/1033173712" para pruebas
                 new InterstitialAdLoadCallback() {
                     @Override
