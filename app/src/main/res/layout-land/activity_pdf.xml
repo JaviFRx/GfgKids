@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:onClick="ir_inicio"
     android:orientation="vertical"
     tools:context=".pdf"
     tools:ignore="DuplicateClickableBoundsCheck">
@@ -29,9 +28,9 @@
             android:contentDescription="@string/Vacio"
             android:onClick="ir_inicio"
             android:scaleType="fitXY"
+            android:src="@drawable/inicio_logo"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/salir" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </com.github.barteksc.pdfviewer.PDFView>
 

@@ -51,7 +51,7 @@
                         android:textDirection="firstStrongRtl" />
 
                     <ImageButton
-                        android:id="@+id/b_Quitanieves"
+                        android:id="@+id/B_balancin"
                         android:layout_width="0dp"
                         android:layout_height="250dp"
                         android:layout_weight="1"
@@ -61,7 +61,7 @@
                         android:minHeight="275dp"
                         android:onClick="seleccion"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/candado_verde"
+                        android:src="@drawable/balancin"
                         android:textAlignment="gravity"
                         android:textDirection="firstStrongRtl" />
 
@@ -98,7 +98,7 @@
                         android:layout_width="0dp"
                         android:layout_height="60dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/proximamente_txt" />
+                        app:srcCompat="@drawable/balancin_txt" />
 
                     <ImageView
                         android:id="@+id/imageView18"
